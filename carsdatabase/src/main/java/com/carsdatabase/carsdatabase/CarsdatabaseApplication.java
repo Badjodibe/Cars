@@ -13,6 +13,8 @@ import com.carsdatabase.carsdatabase.domain.Car;
 import com.carsdatabase.carsdatabase.domain.CarRepository;
 import com.carsdatabase.carsdatabase.domain.Owner;
 import com.carsdatabase.carsdatabase.domain.OwnerRepository;
+import com.carsdatabase.carsdatabase.domain.User;
+import com.carsdatabase.carsdatabase.domain.UserRepository;
 
 @SpringBootApplication
 public class CarsdatabaseApplication implements CommandLineRunner {
@@ -22,6 +24,8 @@ public class CarsdatabaseApplication implements CommandLineRunner {
 	private  OwnerRepository orepository;
 	@Autowired
 	private CarRepository repository;
+	@Autowired
+	private UserRepository urepository;
 	
 	public static void main(String[] args) {
 		
@@ -37,7 +41,11 @@ public class CarsdatabaseApplication implements CommandLineRunner {
 		Car car1 = new Car("Ford", "Mustang", "Red","ADF-1121", 2021, 59000, owner1);
 		Car car2 = new Car("Nissan", "Leaf", "White","SSJ-3002", 2019, 29000, owner2);
 		Car car3 = new Car("Toyota", "Prius", "Silver","KKO-0212", 2020, 39000, owner2);
+		
 		repository.saveAll(Arrays.asList(car1, car2,car3));
+		
+		urepository.save(new User("user","$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue","USER"));
+		urepository.save(new User("admin","$2a$10$8cjz47bjbR4Mn8GMg9IZx.vyjhLXR/SKKMSZ9.mP9vpMu0ssKi8GW", "ADMIN"));
 		for (Car car : repository.findAll()) {
 			logger.info(car.getBrand() + "" +
 			car.getModel());
